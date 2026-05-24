@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Карта глубин от дяди Вани</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<div id="sky"></div>
+
+<div class="sidebar">
+
+<div class="logo">
+🎣 Карта глубин<br>от дяди Вани
+</div>
+
+<div class="weather-card">
+
+<div class="weather-top">
+
+<div>
+<div class="city">Новосибирская область</div>
+<div class="temp" id="temp">+20°</div>
+<div class="condition" id="condition">Солнечно</div>
+</div>
+
+<div class="weather-icon" id="weatherIcon">☀️</div>
+
+</div>
+
+<div class="weather-details">
+<div>💨 Ветер: 3 м/с</div>
+<div>💧 Влажность: 66%</div>
+<div>🧭 Давление: 746 мм</div>
+<div>🌙 Луна: растущая</div>
+</div>
+
+</div>
+
+<div class="controls">
+<button onclick="setMap('sat')">🛰 Спутник</button>
+<button onclick="setMap('osm')">🗺 Обычная карта</button>
+<button onclick="toggleDepth()">🌊 Глубины ON/OFF</button>
+<button onclick="saveCloud()">☁ Облако</button>
+</div>
+
+<div class="forecast">
+
+<h2>🐟 Прогноз клёва</h2>
+
+<div class="fish good">Судак — отличный клёв</div>
+<div class="fish medium">Щука — средний клёв</div>
+<div class="fish good">Окунь — активен</div>
+<div class="fish bad">Лещ — слабый клёв</div>
+
+<h3>Мирная рыба</h3>
+
+<div class="fish good">Карась — хороший клёв</div>
+<div class="fish medium">Карп — средний клёв</div>
+<div class="fish good">Сазан — активен</div>
+<div class="fish medium">Плотва — хороший клёв</div>
+<div class="fish medium">Краснопёрка — средний клёв</div>
+<div class="fish good">Белый амур — хороший клёв</div>
+<div class="fish medium">Линь — вечерний клёв</div>
+<div class="fish bad">Подлещик — слабая активность</div>
+
+</div>
+
+</div>
+
+<div id="map"></div>
+
+<div class="legend">
+
+<h3>Палитра глубин</h3>
+
+<div><span style="background:#002bff"></span>0-2 м</div>
+<div><span style="background:#00b7ff"></span>2-4 м</div>
+<div><span style="background:#00ff88"></span>4-6 м</div>
+<div><span style="background:#ffe600"></span>6-8 м</div>
+<div><span style="background:#ff6a00"></span>8-10 м</div>
+<div><span style="background:#ff0000"></span>10+ м</div>
+
+<p style="margin-top:14px;font-size:13px;opacity:0.8;">
+🎯 Двойной клик по точке удаляет её
+</p>
+
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
