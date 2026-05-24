@@ -194,3 +194,102 @@ icon.innerText = '🌙';
 }
 
 updateWeather();
+
+
+// Реальная погода через Open-Meteo API
+
+async function loadRealWeather(){
+
+try{
+
+const lat = 55.03;
+const lon = 82.92;
+
+const url =
+`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,pressure_msl,wind_speed_10m&timezone=auto`;
+
+const response = await fetch(url);
+
+const data = await response.json();
+
+const current = data.current;
+
+const temp = Math.round(current.temperature_2m);
+
+document.getElementById('temp').innerText =
+`${temp}°`;
+
+document.querySelector('.weather-details').innerHTML = `
+<div>💨 Ветер: ${current.wind_speed_10m} м/с</div>
+<div>💧 Влажность: ${current.relative_humidity_2m}%</div>
+<div>🧭 Давление: ${Math.round(current.pressure_msl)} мм</div>
+<div>🌍 Обновлено в реальном времени</div>
+`;
+
+}catch(e){
+
+console.log('Ошибка погоды',e);
+
+}
+
+}
+
+loadRealWeather();
+
+setInterval(loadRealWeather, 300000);
+
+async function loadYandexWeather(){
+
+try{
+
+const API_KEY = '6251977f-2cfc-4d74-9cb2-8b250cefae63';
+
+const lat = 55.03;
+const lon = 82.92;
+
+const response = await fetch(
+`https://api.weather.yandex.ru/v2/forecast?lat=${lat}&lon=${lon}`,
+{
+headers:{
+'X-Yandex-Weather-Key': API_KEY
+}
+}
+);
+
+const data = await response.json();
+
+const fact = data.fact;
+
+document.getElementById('temp').innerText =
+`${Math.round(fact.temp)}°`;
+
+const translate = {
+'clear':'Ясно',
+'partly-cloudy':'Малооблачно',
+'cloudy':'Облачно',
+'overcast':'Пасмурно',
+'light-rain':'Небольшой дождь',
+'rain':'Дождь',
+'snow':'Снег',
+'thunderstorm':'Гроза'
+};
+
+document.getElementById('condition').innerText =
+translate[fact.condition] || 'Погода';
+
+}catch(e){
+
+console.log(e);
+
+}
+
+}
+
+loadYandexWeather();
+
+setInterval(loadYandexWeather, 300000);
+
+
+
+
+
