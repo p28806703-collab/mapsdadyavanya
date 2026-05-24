@@ -238,58 +238,18 @@ loadRealWeather();
 
 setInterval(loadRealWeather, 300000);
 
-async function loadYandexWeather(){
-
-try{
-
-const API_KEY = '6251977f-2cfc-4d74-9cb2-8b250cefae63';
-
-const lat = 55.03;
-const lon = 82.92;
-
-const response = await fetch(
-`https://api.weather.yandex.ru/v2/forecast?lat=${lat}&lon=${lon}`,
-{
-headers:{
-'X-Yandex-Weather-Key': API_KEY
-}
-}
-);
-
-const data = await response.json();
-
-const fact = data.fact;
-
-document.getElementById('temp').innerText =
-`${Math.round(fact.temp)}°`;
-
-const translate = {
-'clear':'Ясно',
-'partly-cloudy':'Малооблачно',
-'cloudy':'Облачно',
-'overcast':'Пасмурно',
-'light-rain':'Небольшой дождь',
-'rain':'Дождь',
-'snow':'Снег',
-'thunderstorm':'Гроза'
-};
-
-document.getElementById('condition').innerText =
-translate[fact.condition] || 'Погода';
-
-}catch(e){
-
-console.log(e);
-
+// Функция открытия/закрытия шторки на мобильных устройствах
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    if (window.innerWidth <= 900) {
+        sidebar.classList.toggle('open');
+    }
 }
 
-}
-
-loadYandexWeather();
-
-setInterval(loadYandexWeather, 300000);
-
-
-
-
+// Закрываем шторку при клике на карту (чтобы освободить обзор)
+map.on('click', function() {
+    if (window.innerWidth <= 900) {
+        document.getElementById('sidebar').classList.remove('open');
+    }
+});
 
